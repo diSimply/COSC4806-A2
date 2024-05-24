@@ -12,7 +12,7 @@
 
   $user_row = $user->getUserByUsernamePassword($username, $password);
 
-
+  // if user row exists, then login was successfull
   if ($user_row) {
     $_SESSION['authenticated'] = true;
     $_SESSION['failed_attempts'] = 0;

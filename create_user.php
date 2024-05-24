@@ -21,6 +21,5 @@
       $user->createUser($username, $password);
       header('location: /login.php');
     }
-
   }
 ?>

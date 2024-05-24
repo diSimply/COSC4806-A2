@@ -7,6 +7,19 @@
       header('location: /');
     }
   }
+
+    $error_text = '';
+    if(isset($_SERVER['QUERY_STRING'])) {
+      $search_param = array();
+      parse_str($_SERVER['QUERY_STRING'], $search_param);
+      if (isset($search_param['error'])) {
+        if($search_param['error'] == 'invalid_credentials') {
+          $error_text = "Invalid credentials";
+        } else {
+          $error_text = "Failed to login";
+        }
+      }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +41,8 @@
         <input type="password" id="password" name="password" required>
       </div>
       <input type="submit" value="Submit">
+      <p style="color: red;"><?php echo $error_text ?></p>
     </form>
+    <p>Don't have an account? <a href="signup.php">Sign up</a></p>
   </body>
 </html>

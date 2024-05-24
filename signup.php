@@ -7,6 +7,23 @@
       header('location: /');
     }
   }
+
+  $error_text = '';
+  if(isset($_SERVER['QUERY_STRING'])) {
+    $search_param = array();
+    parse_str($_SERVER['QUERY_STRING'], $search_param);
+    if (isset($search_param['error'])) {
+      if($search_param['error'] == 'passwords_dont_match') {
+        $error_text = "Passwords don't match";
+      } else if ($search_param['error'] == 'password_must_be_at_least_10_characters') {
+        $error_text = "Password must be at least 10 characters";
+      } else if ($search_param['error'] == 'username_already_exists') {
+        $error_text = "Username already exists";
+      } else {
+        $error_text = "Failed to signup";
+      }
+    }
+  }
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +49,8 @@
         <input type="password" id="confirm_password" name="confirm_password" required>
       </div>
       <input type="submit" value="Submit">
+      <p style="color: red;"><?php echo $error_text ?></p>
     </form>
+    <p>Already have an account? <a href="login.php">Login</a></p>
   </body>
 </html>
